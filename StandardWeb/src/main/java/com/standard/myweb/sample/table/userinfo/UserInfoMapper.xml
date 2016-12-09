@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.standard.myweb.sample.table.userinfo">
+	<select id="selectUserInfo" resultType="UserInfoVO">
+		  SELECT userid, username, userage, gender
+		  FROM userinfo
+		  limit #{currentItem}, #{itemPerPage}
+	</select>
+	
+	<select id="selectUserInfoCnt" resultType="Integer">
+		  SELECT count(*)
+		  FROM userinfo
+	</select>
+	
+	<insert id="insertUserInfo" parameterType="UserInfoVO">
+		INSERT INTO userinfo (userid, username, userage, gender)
+		VALUES (#{userId, jdbcType=VARCHAR}, #{userName, jdbcType=VARCHAR}, #{userAge, jdbcType=INTEGER}, #{gender, jdbcType=INTEGER})
+	</insert>
+	
+	<update id="updateUesrInfo" parameterType="UserInfoVO">
+		UPDATE userinfo
+		SET username=#{userName, jdbcType=VARCHAR}, userage=#{userAge, jdbcType=INTEGER}
+		WHERE userid=#{userId, jdbcType=VARCHAR}
+	</update>
+	
+	<delete id="deleteUserInfo" parameterType="String">
+		DELETE FROM userinfo
+ 		WHERE userid = #{userId, jdbcType=VARCHAR}
+	</delete>
+</mapper>
